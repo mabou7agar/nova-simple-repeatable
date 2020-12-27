@@ -1,10 +1,9 @@
 <template>
-  <default-field :field="field" :errors="errors" :show-help-text="showHelpText" class="simple-repeatable">
-    <template slot="field">
+    <div class="simple-repeatable">
       <div class="flex flex-col">
         <!-- Title columns -->
         <div class="simple-repeatable-header-row flex border-b border-40 py-2">
-          <div v-for="(repField, i) in field.repeatableFields" :key="i" class="font-bold text-90 text-md w-full mr-3">
+          <div v-for="(repField, i) in field.repeatableFields" :key="i" class="font-bold text-90 text-md w-full">
             {{ repField.name }}
           </div>
         </div>
@@ -12,7 +11,7 @@
           <div
             v-for="(fields, i) in fieldsWithValues"
             :key="fields[0].attribute"
-            class="simple-repeatable-row flex py-3 pl-3 relative rounded-md"
+            class="simple-repeatable-row flex py-2"
           >
 
             <component
@@ -20,27 +19,21 @@
               :key="i"
               :is="`detail-${repField.component}`"
               :field="repField"
-              class="mr-3"
               :resource-name="resourceName"
               :resource-id="resourceId"
             />
-
-
           </div>
-
-
       </div>
-    </template>
-  </default-field>
+    </div>
 </template>
 
 <script>
-import { FormField } from 'laravel-nova';
+import { BehavesAsPanel, FormField } from 'laravel-nova';
 
 let UNIQUE_ID_INDEX = 0;
 
 export default {
-  mixins: [FormField],
+  mixins: [BehavesAsPanel, FormField],
 
   props: ['resourceName', 'resourceId', 'field'],
 
@@ -117,11 +110,11 @@ export default {
 <style lang="scss" scoped>
 .simple-repeatable {
   .simple-repeatable-header-row {
-    width: calc(100% - 10px);
+    width: calc(100%);
   }
 
   .simple-repeatable-row {
-    width: calc(100% + 68px);
+    width: calc(100%);
 
     // Select field
     > * {
@@ -139,54 +132,6 @@ export default {
         padding: 0 !important;
       }
     }
-
-    margin-left: -46px;
-
-    .delete-icon {
-      width: 36px;
-      height: 36px;
-      margin-right: 10px;
-      cursor: pointer;
-
-      &:hover {
-        cursor: pointer;
-
-        > svg > path {
-          fill: var(--danger);
-        }
-      }
-    }
-
-    .vue-draggable-handle {
-      height: 36px;
-      width: 36px;
-      margin-right: 10px;
-
-      &:hover {
-        opacity: 0.8;
-      }
-    }
-
-    &:hover {
-      background: var(--40);
-    }
-  }
-
-  .add-button {
-    width: calc(100% + 11px);
-
-    &.delete-width {
-      width: calc(100% - 22px);
-    }
-  }
-
-  > :nth-child(1) {
-    min-width: 20%;
-  }
-
-  // Make field area full width
-  > :nth-child(2) {
-    width: 100% !important;
   }
 }
 </style>
