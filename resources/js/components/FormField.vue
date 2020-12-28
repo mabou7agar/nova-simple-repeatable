@@ -106,7 +106,7 @@ export default {
     copyFields(value) {
       return this.field.repeatableFields.map(field => ({
         ...field,
-        attribute: `${field.attribute}---${UNIQUE_ID_INDEX++}`,
+        attribute: `${field.attribute}`,
         value: value && value[field.attribute],
       }));
     },
