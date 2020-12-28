@@ -28,6 +28,8 @@
                 :key="i"
                 :is="`form-${repField.component}`"
                 :field="repField"
+                :resource-name="resourceName"
+                :resource-id="resourceId"
                 class="mr-3"
             />
 
